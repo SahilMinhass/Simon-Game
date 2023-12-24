@@ -5,46 +5,35 @@ var level = 0;
 var started= false;
 
 function nextSequence() {
-    
     userClickedPattern = [];
     level++;
     $("h1").text("Level "+level);
     var randomNumber = Math.floor(Math.random() * 4);
     var randomChosenColor = buttonColors[randomNumber];
     gamePattern.push(randomChosenColor);
-    
     $("#" + randomChosenColor).fadeOut(100).fadeIn(100);
     var sound1 =  randomChosenColor + ".mp3";
     playSound(sound1);
 }    
 
-   
-    $(".btn").click(function (event) {
-        var userChosenColor = event.currentTarget.id;
-        userClickedPattern.push(userChosenColor);
-        animatePress(userChosenColor);
-        setTimeout(function () {
-            $("." + userChosenColor).removeClass("pressed");
-        }, 100);
-        var sound2 = userChosenColor + ".mp3";
-        playSound(sound2);
-        checkAnswer(userClickedPattern.length-1);
-            
-    });
+$(".btn").click(function (event) {
+    var userChosenColor = event.currentTarget.id;
+    userClickedPattern.push(userChosenColor);
+    animatePress(userChosenColor);
+    setTimeout(function () {
+        $("." + userChosenColor).removeClass("pressed");
+    }, 100);
+    var sound2 = userChosenColor + ".mp3";
+    playSound(sound2);
+    checkAnswer(userClickedPattern.length-1);
+});
     
-    
-
-
-
-
 $(document).keydown(function () {
-    
     if(!started){
         $("h1").text("Level " + level);
         nextSequence();
         started= true;
     }
-
 });
 
 function playSound(name) {
